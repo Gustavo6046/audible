@@ -35,7 +35,7 @@ class SineAMCodec(object):
             sample_pos = i * char_samples
             byte_pos = i * char_bytes
             ch = struct.pack("=" + str(int(char_samples)) + dp, *[int(self.am_sine((sample_pos + x) / wave_frequency, float(d) / 255) * 2 ** (8 * byte_depth)) for x in range(int(char_samples))])
-            print(d, d / 255, data[i: i + 1].decode(self.encoding))
+            #print(d, d / 255, data[i: i + 1].decode(self.encoding))
             res += ch
             i += int(char_samples)
             
@@ -55,7 +55,7 @@ class SineAMCodec(object):
             osc = np.array([min(1, a + 0.000001) for a in [self.am_sine((i * char_samples + x) / wave_frequency, 1.0) for x in range(int(len(sample) / byte_depth))]])
             
             res = math.ceil(np.mean(a / osc) * 255)
-            print(res / 255, res, struct.pack('B', int(res)).decode(self.encoding))
+            #print(res / 255, res, struct.pack('B', int(res)).decode(self.encoding))
             
             if debug:
                 plt.plot(a, 'r-', osc, 'b-')
